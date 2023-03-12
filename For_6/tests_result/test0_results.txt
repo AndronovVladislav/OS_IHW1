@@ -1,0 +1,161 @@
+}
+0; return
+
+    }
+    close(file_output);
+        buf); printf("%s",
+        strlen(buf)); buf, write(file_output,
+        O_WRONLY); | O_CREAT open(argv[2], = file_output int
+
+        2); - BUF_SIZE buf, read(fd[0],
+        {0}; = buf[BUF_SIZE] char
+        close(fd[1]);
+
+        }        //
+exit(-1);            //
+{ -1) == read_result || -1 == (wait(&read_result) if        //
+read_result; int        //
+program third //
+        { else }
+    }
+        fd); reverse(buf,
+
+            2); - BUF_SIZE buf, read(fd1[0],
+            {0}; = buf[BUF_SIZE] char
+
+            close(fd[0]);
+            close(fd1[1]);
+            program second  //
+            { else }
+        fd1); read_from_file(argv[1],
+            close(fd1[0]);
+            program first  //
+            { 0) == (chpid1 if else }
+        exit(-1);
+            :c\n"); child second create can't printf("I
+            { -1) == fork()) = ((chpid1 if
+        pipe(fd1);
+
+        chpid1; pid_t
+        fd1[2]; int
+        { 0) == (chpid if else }
+    exit(-1);
+        :c\n"); child first create can't printf("I
+        { -1) == fork()) = ((chpid if
+    pipe(fd);
+
+    chpid; pid_t
+    fd[2]; int
+
+    }
+    exit(-1);
+        parameters!\n"); line command of count printf("Incorrect
+        { 3) != (argc if
+    { **argv) char argc, main(int int
+
+}
+free(result);
+    free(marks);
+    free(words);
+
+    }
+    free(marks[i]);
+        free(words[i]);
+        { ++i) BUF_SIZE; < i 0; = i (int for
+
+    BUF_SIZE); result, write(fd[1],
+    close(fd[0]);
+
+    }
+    }
+        }
+            words[words_count]); strcat(result,
+                { -1) > (words_count if
+            }
+            marks[marks_count]); strcat(result,
+                { -1) > (marks_count if
+            { else }
+        }
+            marks[marks_count]); strcat(result,
+                { -1) > (marks_count if
+            }
+            words[words_count]); strcat(result,
+                { -1) > (words_count if
+            { (my_isalnum(string[0])) if
+        --marks_count;
+        --words_count;
+        { -1) > marks_count || -1 > (words_count while
+    sizeof(char)); calloc(BUF_SIZE, = *result char
+
+    }
+    }
+        }
+            break;
+                j; = i
+                '\0'; = buf[0]
+
+                }
+                buf); strcpy(marks[marks_count++],
+                    { else }
+                buf); strcpy(words[words_count++],
+                    { (my_isalnum(string[i])) if
+
+                '\0'; = 1] + i - buf[j
+                { 1) - strlen(string) == (j if else }
+            break;
+                1; - j = i
+                '\0'; = buf[0]
+
+                }
+                buf); strcpy(marks[marks_count++],
+                    { else }
+                buf); strcpy(words[words_count++],
+                    { (my_isalnum(string[i])) if
+
+                '\0'; = i] - buf[j
+                { my_isalnum(string[j])) != (my_isalnum(string[i]) if
+            string[j]; = i] - buf[j
+            { ++j) strlen(string); < j i; = j (int for
+        buf[BUF_SIZE]; char
+        { ++i) strlen(string); < i 0; = i (int for
+    0; = marks_count int
+    0; = words_count int
+
+    }
+    sizeof(char)); calloc(BUF_SIZE, = marks[i]
+        sizeof(char)); calloc(BUF_SIZE, = words[i]
+        { ++i) BUF_SIZE; < i 0; = i (int for
+
+    sizeof(char*)); calloc(BUF_SIZE, = **marks char
+    sizeof(char*)); calloc(BUF_SIZE, = **words char
+    { fd[2]) int *string, reverse(char void
+
+}
+'\n'; != ch && '\t' != ch && ' ' != ch return
+    { ch) my_isalnum(char int
+
+}
+BUF_SIZE); buf, write(fd[1],
+    close(fid);
+
+    '\0'; = buf[end_of_string]
+    }
+    exit(-1);
+        { -1) == 2)) - BUF_SIZE buf, read(fid, = ((end_of_string if
+    end_of_string; size_t
+    {0}; = buf[BUF_SIZE] char
+
+    }
+    exit(-1);
+        { -1) == O_RDONLY)) open(filename, = ((fid if
+    fid; int
+    { fd[2]) int *filename, char read_from_file(const void
+
+5002 BUF_SIZE #define
+
+<unistd.h> #include
+<stdlib.h> #include
+<sys/wait.h> #include
+<string.h> #include
+<stdio.h> #include
+<fcntl.h> #include
