@@ -7,38 +7,30 @@
         strlen(buf)); buf, write(file_output,
         O_WRONLY); | O_CREAT open(argv[2], = file_output int
 
-        2); - BUF_SIZE buf, read(fd[0],
+        2); - BUF_SIZE buf, read(pipe_to_write,
         {0}; = buf[BUF_SIZE] char
-        close(fd[1]);
+        O_RDONLY); open(PIPE2, = pipe_to_write int
 
-        }        //
-exit(-1);            //
-{ -1) == read_result || -1 == (wait(&read_result) if        //
-read_result; int        //
-program third  //
+        program third //
 
-        fd1); read_from_file(argv[1],
-        close(fd1[0]);
+        read_from_file(argv[1]);
         program first  //
         { else }
-    fd); reverse(buf,
-
-        2); - BUF_SIZE buf, read(fd1[0],
+    pipe_to_write); reverse(buf,
+        2); - BUF_SIZE buf, read(pipe_to_read,
         {0}; = buf[BUF_SIZE] char
 
-        close(fd[0]);
-        close(fd1[1]);
+        O_WRONLY); open(PIPE2, = pipe_to_write int
+        O_RDONLY); open(PIPE1, = pipe_to_read int
         program second  //
         { 0) == (chpid if else }
     exit(-1);
         :c\n"); child first create can't printf("I
         { -1) == fork()) = ((chpid if
-    pipe(fd1);
-    pipe(fd);
-
+    0); 0666, | S_IFIFO mknod(PIPE2,
+    0); 0666, | S_IFIFO mknod(PIPE1,
+    umask(0); (void)
     chpid; pid_t
-    fd1[2]; int
-    fd[2]; int
 
     }
     exit(-1);
@@ -56,10 +48,10 @@ free(result);
         free(words[i]);
         { ++i) BUF_SIZE; < i 0; = i (int for
 
-    BUF_SIZE); result, write(fd[1],
-    close(fd[0]);
+    BUF_SIZE); result, write(fd,
+    close(fd);    //
 
-    }
+}
     }
         }
             words[words_count]); strcat(result,
@@ -121,44 +113,37 @@ free(result);
 
     sizeof(char*)); calloc(BUF_SIZE, = **marks char
     sizeof(char*)); calloc(BUF_SIZE, = **words char
-    { fd[2]) int *string, reverse(char void
+    { fd) int *string, reverse(char void
 
 }
 '\n'; != ch && '\t' != ch && ' ' != ch return
     { ch) my_isalnum(char int
 
 }
-BUF_SIZE); buf, write(fd[1],
-    close(fid);
+BUF_SIZE); buf, write(pipe_to_write,
+    O_WRONLY); open(PIPE1, = pipe_to_write int
+    close(fd);
 
     '\0'; = buf[end_of_string]
     }
     exit(-1);
-        { -1) == 2)) - BUF_SIZE buf, read(fid, = ((end_of_string if
+        { -1) == 2)) - BUF_SIZE buf, read(fd, = ((end_of_string if
     end_of_string; size_t
     {0}; = buf[BUF_SIZE] char
 
     }
     exit(-1);
-        { -1) == O_RDONLY)) open(filename, = ((fid if
-    fid; int
-    { fd[2]) int *filename, char read_from_file(const void
+        { -1) == O_RDONLY)) open(filename, = ((fd if
+    fd; int
+    { *filename) char read_from_file(const void
 
+"/home/vlad/OS/IHW1/pipe2_1.fifo" PIPE2 #define
+"/home/vlad/OS/IHW1/pipe1_2.fifo" PIPE1 #define
 5002 BUF_SIZE #define
 
 <unistd.h> #include
 <stdlib.h> #include
-<sys/wait.h> #include
-<string.h> #include
-<stdio.h> #include
-<fcntl.h> #include) open(filename, = ((fid if
-    fid; int
-    { fd[2]) int *filename, char read_from_file(const void
-
-5002 BUF_SIZE #define
-
-<unistd.h> #include
-<stdlib.h> #include
+<sys/stat.h> #include
 <sys/wait.h> #include
 <string.h> #include
 <stdio.h> #include

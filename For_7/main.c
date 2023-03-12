@@ -2,33 +2,37 @@
 #include <stdio.h>
 #include <string.h>
 #include <sys/wait.h>
+#include <sys/stat.h>
 #include <stdlib.h>
 #include <unistd.h>
 
 #define BUF_SIZE 5002
+#define PIPE1 "/home/vlad/OS/IHW1/pipe1_2.fifo"
+#define PIPE2 "/home/vlad/OS/IHW1/pipe2_1.fifo"
 
-void read_from_file(const char *filename, int fd[2]) {
-    int fid;
-    if ((fid = open(filename, O_RDONLY)) == -1) {
+void read_from_file(const char *filename) {
+    int fd;
+    if ((fd = open(filename, O_RDONLY)) == -1) {
         exit(-1);
     }
 
     char buf[BUF_SIZE] = {0};
     size_t end_of_string;
-    if ((end_of_string = read(fid, buf, BUF_SIZE - 2)) == -1) {
+    if ((end_of_string = read(fd, buf, BUF_SIZE - 2)) == -1) {
         exit(-1);
     }
     buf[end_of_string] = '\0';
 
-    close(fid);
-    write(fd[1], buf, BUF_SIZE);
+    close(fd);
+    int pipe_to_write = open(PIPE1, O_WRONLY);
+    write(pipe_to_write, buf, BUF_SIZE);
 }
 
 int my_isalnum(char ch) {
     return ch != ' ' && ch != '\t' && ch != '\n';
 }
 
-void reverse(char *string, int fd[2]) {
+void reverse(char *string, int fd) {
     char **words = calloc(BUF_SIZE, sizeof(char*));
     char **marks = calloc(BUF_SIZE, sizeof(char*));
 
@@ -92,8 +96,8 @@ void reverse(char *string, int fd[2]) {
         }
     }
 
-    close(fd[0]);
-    write(fd[1], result, BUF_SIZE);
+//    close(fd);
+    write(fd, result, BUF_SIZE);
 
     for (int i = 0; i < BUF_SIZE; ++i) {
         free(words[i]);
@@ -111,38 +115,30 @@ int main(int argc, char **argv) {
         exit(-1);
     }
 
-    int fd[2];
-    int fd1[2];
     pid_t chpid;
-
-    pipe(fd);
-    pipe(fd1);
+    (void) umask(0);
+    mknod(PIPE1, S_IFIFO | 0666, 0);
+    mknod(PIPE2, S_IFIFO | 0666, 0);
     if ((chpid = fork()) == -1) {
         printf("I can't create first child :c\n");
         exit(-1);
     } else if (chpid == 0) {
         //  second program
-        close(fd1[1]);
-        close(fd[0]);
+        int pipe_to_read = open(PIPE1, O_RDONLY);
+        int pipe_to_write = open(PIPE2, O_WRONLY);
 
         char buf[BUF_SIZE] = {0};
-        read(fd1[0], buf, BUF_SIZE - 2);
-
-        reverse(buf, fd);
+        read(pipe_to_read, buf, BUF_SIZE - 2);
+        reverse(buf, pipe_to_write);
     } else {
         //  first program
-        close(fd1[0]);
-        read_from_file(argv[1], fd1);
+        read_from_file(argv[1]);
 
-        //  third program
-//        int read_result;
-//        if (wait(&read_result) == -1 || read_result == -1) {
-//            exit(-1);
-//        }
+        // third program
 
-        close(fd[1]);
+        int pipe_to_write = open(PIPE2, O_RDONLY);
         char buf[BUF_SIZE] = {0};
-        read(fd[0], buf, BUF_SIZE - 2);
+        read(pipe_to_write, buf, BUF_SIZE - 2);
 
         int file_output = open(argv[2], O_CREAT | O_WRONLY);
         write(file_output, buf, strlen(buf));

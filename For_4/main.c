@@ -112,29 +112,36 @@ int main(int argc, char **argv) {
     }
 
     int fd[2];
-    int fd1[2];
     pid_t chpid;
 
     pipe(fd);
-    pipe(fd1);
     if ((chpid = fork()) == -1) {
         printf("I can't create first child :c\n");
         exit(-1);
     } else if (chpid == 0) {
-        //  second program
-        close(fd1[1]);
-        close(fd[0]);
+        int fd1[2];
+        pid_t chpid1;
 
-        char buf[BUF_SIZE] = {0};
-        read(fd1[0], buf, BUF_SIZE - 2);
+        pipe(fd1);
+        if ((chpid1 = fork()) == -1) {
+            printf("I can't create second child :c\n");
+            exit(-1);
+        } else if (chpid1 == 0) {
+            //  first program
+            close(fd1[0]);
+            read_from_file(argv[1], fd1);
+        } else {
+            //  second program
+            close(fd1[1]);
+            close(fd[0]);
 
-        reverse(buf, fd);
+            char buf[BUF_SIZE] = {0};
+            read(fd1[0], buf, BUF_SIZE - 2);
+
+            reverse(buf, fd);
+        }
     } else {
-        //  first program
-        close(fd1[0]);
-        read_from_file(argv[1], fd1);
-
-        //  third program
+        // third program
 //        int read_result;
 //        if (wait(&read_result) == -1 || read_result == -1) {
 //            exit(-1);

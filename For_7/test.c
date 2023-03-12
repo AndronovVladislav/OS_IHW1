@@ -1,6 +1,8 @@
+#include <ctype.h>
 #include <fcntl.h>
 #include <stdio.h>
 #include <string.h>
+#include <sys/types.h>
 #include <sys/wait.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -13,19 +15,18 @@ void read_from_file(const char *filename, int fd[2]) {
         exit(-1);
     }
 
-    char buf[BUF_SIZE] = {0};
+    char buf[BUF_SIZE];
     size_t end_of_string;
     if ((end_of_string = read(fid, buf, BUF_SIZE - 2)) == -1) {
         exit(-1);
     }
     buf[end_of_string] = '\0';
 
-    close(fid);
-    write(fd[1], buf, BUF_SIZE);
+    write(fd[1], buf, BUF_SIZE - 2);
 }
 
 int my_isalnum(char ch) {
-    return ch != ' ' && ch != '\t' && ch != '\n';
+    return ch != ' ' && ch != '\t';
 }
 
 void reverse(char *string, int fd[2]) {
@@ -63,9 +64,6 @@ void reverse(char *string, int fd[2]) {
                 } else {
                     strcpy(marks[marks_count++], buf);
                 }
-
-                buf[0] = '\0';
-                i = j;
                 break;
             }
         }
@@ -73,8 +71,6 @@ void reverse(char *string, int fd[2]) {
 
     char *result = calloc(BUF_SIZE, sizeof(char));
     while (words_count > -1 || marks_count > -1) {
-        --words_count;
-        --marks_count;
         if (my_isalnum(string[0])) {
             if (words_count > -1) {
                 strcat(result, words[words_count]);
@@ -90,10 +86,12 @@ void reverse(char *string, int fd[2]) {
                 strcat(result, words[words_count]);
             }
         }
+        --words_count;
+        --marks_count;
     }
 
     close(fd[0]);
-    write(fd[1], result, BUF_SIZE);
+    printf("%s", result);
 
     for (int i = 0; i < BUF_SIZE; ++i) {
         free(words[i]);
@@ -106,49 +104,14 @@ void reverse(char *string, int fd[2]) {
 }
 
 int main(int argc, char **argv) {
-    if (argc != 3) {
-        printf("Incorrect count of command line parameters!\n");
-        exit(-1);
-    }
-
     int fd[2];
-    int fd1[2];
-    pid_t chpid;
+    char *str = calloc(10000, sizeof(char));
+
+    int file = open("/mnt/c/Users/Vlad/CLionProjects/OS_IHW1/tests/test1.txt", O_RDONLY);
+    read(file, str, 10000);
 
     pipe(fd);
-    pipe(fd1);
-    if ((chpid = fork()) == -1) {
-        printf("I can't create first child :c\n");
-        exit(-1);
-    } else if (chpid == 0) {
-        //  second program
-        close(fd1[1]);
-        close(fd[0]);
-
-        char buf[BUF_SIZE] = {0};
-        read(fd1[0], buf, BUF_SIZE - 2);
-
-        reverse(buf, fd);
-    } else {
-        //  first program
-        close(fd1[0]);
-        read_from_file(argv[1], fd1);
-
-        //  third program
-//        int read_result;
-//        if (wait(&read_result) == -1 || read_result == -1) {
-//            exit(-1);
-//        }
-
-        close(fd[1]);
-        char buf[BUF_SIZE] = {0};
-        read(fd[0], buf, BUF_SIZE - 2);
-
-        int file_output = open(argv[2], O_CREAT | O_WRONLY);
-        write(file_output, buf, strlen(buf));
-        printf("%s", buf);
-        close(file_output);
-    }
-
+    reverse(str, fd);
+    free(str);
     return 0;
 }
