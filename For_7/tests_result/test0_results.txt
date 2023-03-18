@@ -10,7 +10,6 @@
         2); - BUF_SIZE buf, read(pipe_to_write,
         {0}; = buf[BUF_SIZE] char
         O_RDONLY); open(PIPE2, = pipe_to_write int
-
         program third //
 
         read_from_file(argv[1]);
@@ -49,9 +48,8 @@ free(result);
         { ++i) BUF_SIZE; < i 0; = i (int for
 
     BUF_SIZE); result, write(fd,
-    close(fd);    //
 
-}
+    }
     }
         }
             words[words_count]); strcat(result,
@@ -137,14 +135,14 @@ BUF_SIZE); buf, write(pipe_to_write,
     fd; int
     { *filename) char read_from_file(const void
 
-"/home/vlad/OS/IHW1/pipe2_1.fifo" PIPE2 #define
-"/home/vlad/OS/IHW1/pipe1_2.fifo" PIPE1 #define
+"/tmp/pipe2_3.fifo" PIPE2 #define
+"/tmp/pipe1_2.fifo" PIPE1 #define
 5002 BUF_SIZE #define
 
 <unistd.h> #include
 <stdlib.h> #include
 <sys/stat.h> #include
-<sys/wait.h> #include
 <string.h> #include
 <stdio.h> #include
+<fcntl.h> #include #include
 <fcntl.h> #include

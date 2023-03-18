@@ -7,8 +7,8 @@
 #include <unistd.h>
 
 #define BUF_SIZE 5002
-#define PIPE1 "/home/vlad/OS/IHW1/pipe1_2.fifo"
-#define PIPE2 "/home/vlad/OS/IHW1/pipe2_3.fifo"
+#define PIPE1 "/tmp/pipe1_2.fifo"
+#define PIPE2 "/tmp/pipe2_3.fifo"
 
 void read_from_file(const char *filename) {
     int fd;
@@ -25,9 +25,7 @@ void read_from_file(const char *filename) {
 
     close(fd);
     int pipe_to_write = open(PIPE1, O_RDWR);
-//    printf("I read: %s\n pipe is %d\n", buf, pipe_to_write);
     write(pipe_to_write, buf, BUF_SIZE);
-//    close(pipe_to_write);
 }
 
 int my_isalnum(char ch) {
@@ -98,7 +96,6 @@ void reverse(char *string, int fd) {
         }
     }
 
-//    close(fd);
     write(fd, result, BUF_SIZE);
 
     for (int i = 0; i < BUF_SIZE; ++i) {
@@ -120,52 +117,33 @@ int main(int argc, char **argv) {
     pid_t chpid;
     (void) umask(0);
     mknod(PIPE1, S_IFIFO | 0666, 0);
-//    perror("I can't create first pipe\n");
     if ((chpid = fork()) == -1) {
         printf("I can't create first child :c\n");
         exit(-1);
     } else if (chpid == 0) {
         pid_t chpid1;
-        umask(0);
+        (void) umask(0);
         mknod(PIPE2, S_IFIFO | 0666, 0);
-//        perror("I can't create second pipe");
         if ((chpid1 = fork()) == -1) {
             printf("I can't create second child :c\n");
             exit(-1);
         } else if (chpid1 == 0) {
             //  first program
-//            printf("I can to try to read from file\n");
             read_from_file(argv[1]);
-//            printf("I can read from file\n");
         } else {
             //  second program
             int pipe_to_read = open(PIPE1, O_RDONLY);
             int pipe_to_write = open(PIPE2, O_WRONLY);
 
-            int read_result;
-            if (wait(&read_result) == -1 || read_result == -1) {
-                exit(-1);
-            }
-
             char buf[BUF_SIZE] = {0};
             read(pipe_to_read, buf, BUF_SIZE - 2);
-//            printf("buf is %s\n", buf);
             reverse(buf, pipe_to_write);
-
-//            close(pipe_to_read);
-//            close(pipe_to_write);
         }
     } else {
         // third program
-//        int read_result;
-//        if (wait(&read_result) == -1 || read_result == -1) {
-//            exit(-1);
-//        }
-
         int pipe_to_write = open(PIPE2, O_RDONLY);
         char buf[BUF_SIZE] = {0};
         read(pipe_to_write, buf, BUF_SIZE - 2);
-//        close(pipe_to_write);
 
         int file_output = open(argv[2], O_CREAT | O_WRONLY);
         write(file_output, buf, strlen(buf));

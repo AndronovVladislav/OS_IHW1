@@ -1,7 +1,6 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include <string.h>
-#include <sys/wait.h>
 #include <stdlib.h>
 #include <unistd.h>
 
@@ -127,26 +126,20 @@ int main(int argc, char **argv) {
             printf("I can't create second child :c\n");
             exit(-1);
         } else if (chpid1 == 0) {
-            //  first program
+            //  first logic block
             close(fd1[0]);
             read_from_file(argv[1], fd1);
         } else {
-            //  second program
+            //  second logic block
             close(fd1[1]);
             close(fd[0]);
 
             char buf[BUF_SIZE] = {0};
             read(fd1[0], buf, BUF_SIZE - 2);
-
             reverse(buf, fd);
         }
     } else {
-        // third program
-//        int read_result;
-//        if (wait(&read_result) == -1 || read_result == -1) {
-//            exit(-1);
-//        }
-
+        // third logic block
         close(fd[1]);
         char buf[BUF_SIZE] = {0};
         read(fd[0], buf, BUF_SIZE - 2);

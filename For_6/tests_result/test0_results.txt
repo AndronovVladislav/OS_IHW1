@@ -3,23 +3,17 @@
 
     }
     close(file_output);
-        buf); printf("%s",
         strlen(buf)); buf, write(file_output,
         O_WRONLY); | O_CREAT open(argv[2], = file_output int
 
         2); - BUF_SIZE buf, read(fd[0],
         {0}; = buf[BUF_SIZE] char
         close(fd[1]);
-
-        }        //
-exit(-1);            //
-{ -1) == read_result || -1 == (wait(&read_result) if        //
-read_result; int        //
-program third  //
+        block logic third  //
 
         fd1); read_from_file(argv[1],
         close(fd1[0]);
-        program first  //
+        block logic first  //
         { else }
     fd); reverse(buf,
 
@@ -28,7 +22,7 @@ program third  //
 
         close(fd[0]);
         close(fd1[1]);
-        program second  //
+        block logic second  //
         { 0) == (chpid if else }
     exit(-1);
         :c\n"); child first create can't printf("I
@@ -148,18 +142,6 @@ BUF_SIZE); buf, write(fd[1],
 
 <unistd.h> #include
 <stdlib.h> #include
-<sys/wait.h> #include
-<string.h> #include
-<stdio.h> #include
-<fcntl.h> #include) open(filename, = ((fid if
-    fid; int
-    { fd[2]) int *filename, char read_from_file(const void
-
-5002 BUF_SIZE #define
-
-<unistd.h> #include
-<stdlib.h> #include
-<sys/wait.h> #include
 <string.h> #include
 <stdio.h> #include
 <fcntl.h> #include

@@ -6,8 +6,8 @@
 #include <unistd.h>
 
 #define BUF_SIZE 5002
-#define PIPE1 "/home/vlad/OS/IHW1/pipe1_2.fifo"
-#define PIPE2 "/home/vlad/OS/IHW1/pipe2_1.fifo"
+#define PIPE1 "/tmp/pipe1_2.fifo"
+#define PIPE2 "/tmp/pipe2_3.fifo"
 
 void read_from_file(const char *filename) {
     int fd;
@@ -95,7 +95,6 @@ void reverse(char *string, int fd) {
         }
     }
 
-//    close(fd);
     write(fd, result, BUF_SIZE);
 
     for (int i = 0; i < BUF_SIZE; ++i) {
@@ -134,7 +133,6 @@ int main(int argc, char **argv) {
         read_from_file(argv[1]);
 
         // third program
-
         int pipe_to_write = open(PIPE2, O_RDONLY);
         char buf[BUF_SIZE] = {0};
         read(pipe_to_write, buf, BUF_SIZE - 2);

@@ -10,18 +10,12 @@
         2); - BUF_SIZE buf, read(pipe_to_write,
         {0}; = buf[BUF_SIZE] char
         O_RDONLY); open(PIPE2, = pipe_to_write int
-
         program third //
         { else }
     }
         pipe_to_write); reverse(buf,
             2); - BUF_SIZE buf, read(pipe_to_read,
             {0}; = buf[BUF_SIZE] char
-
-            }
-            exit(-1);
-                { -1) == read_result || -1 == (wait(&read_result) if
-            read_result; int
 
             O_WRONLY); open(PIPE2, = pipe_to_write int
             O_RDONLY); open(PIPE1, = pipe_to_read int
@@ -34,7 +28,7 @@
             :c\n"); child second create can't printf("I
             { -1) == fork()) = ((chpid1 if
         0); 0666, | S_IFIFO mknod(PIPE2,
-        umask(0);
+        umask(0); (void)
         chpid1; pid_t
         { 0) == (chpid if else }
     exit(-1);
@@ -148,8 +142,8 @@ BUF_SIZE); buf, write(pipe_to_write,
     fd; int
     { *filename) char read_from_file(const void
 
-"/home/vlad/OS/IHW1/pipe2_3.fifo" PIPE2 #define
-"/home/vlad/OS/IHW1/pipe1_2.fifo" PIPE1 #define
+"/tmp/pipe2_3.fifo" PIPE2 #define
+"/tmp/pipe1_2.fifo" PIPE1 #define
 5002 BUF_SIZE #define
 
 <unistd.h> #include

@@ -3,41 +3,27 @@
 
     }
     close(file_output);
-        buf); printf("%s",
         strlen(buf)); buf, write(file_output,
         O_WRONLY); | O_CREAT open(argv[2], = file_output int
 
         2); - BUF_SIZE buf, read(fd[0],
         {0}; = buf[BUF_SIZE] char
         close(fd[1]);
-
-        }
-        exit(-1);
-            { -1) == read_result || -1 == (wait(&read_result) if
-
-        read_result; int
-        { 0) > (chpid if
-    program third  //
-
-    }
+        block logic third //
+        { else }
     }
         fd); reverse(buf,
-
             2); - BUF_SIZE buf, read(fd1[0],
             {0}; = buf[BUF_SIZE] char
 
             close(fd[0]);
             close(fd1[1]);
-            { 0) > (chpid1 if
-        program second  //
-
-        }
+            block logic second  //
+            { else }
         fd1); read_from_file(argv[1],
             close(fd1[0]);
-            { 0) == (chpid1 if
-        program first  //
-
-        }
+            block logic first  //
+            { 0) == (chpid1 if else }
         exit(-1);
             :c\n"); child second create can't printf("I
             { -1) == fork()) = ((chpid1 if
@@ -45,9 +31,7 @@
 
         chpid1; pid_t
         fd1[2]; int
-        { 0) == (chpid if
-
-    }
+        { 0) == (chpid if else }
     exit(-1);
         :c\n"); child first create can't printf("I
         { -1) == fork()) = ((chpid if
@@ -76,9 +60,7 @@ free(result);
     close(fd[0]);
 
     }
-    --marks_count;
-        --words_count;
-        }
+    }
         }
             words[words_count]); strcat(result,
                 { -1) > (words_count if
@@ -93,23 +75,26 @@ free(result);
             words[words_count]); strcat(result,
                 { -1) > (words_count if
             { (my_isalnum(string[0])) if
+        --marks_count;
+        --words_count;
         { -1) > marks_count || -1 > (words_count while
     sizeof(char)); calloc(BUF_SIZE, = *result char
 
     }
     }
-        break;
-            }
-            '\0'; = 1])] - 1][strlen(marks[marks_count - marks[marks_count
-                buf); strcpy(marks[marks_count++],
-                { else }
-            '\0'; = 1])] - 1][strlen(words[words_count - words[words_count
-                buf); strcpy(words[words_count++],
-                { (my_isalnum(string[0])) if
-            { 0) > (strlen(buf) if
+        }
+            break;
+                j; = i
+                '\0'; = buf[0]
 
-        }
-        }
+                }
+                buf); strcpy(marks[marks_count++],
+                    { else }
+                buf); strcpy(words[words_count++],
+                    { (my_isalnum(string[i])) if
+
+                '\0'; = 1] + i - buf[j
+                { 1) - strlen(string) == (j if else }
             break;
                 1; - j = i
                 '\0'; = buf[0]
@@ -156,6 +141,16 @@ BUF_SIZE); buf, write(fd[1],
     }
     exit(-1);
         { -1) == O_RDONLY)) open(filename, = ((fid if
+    fid; int
+    { fd[2]) int *filename, char read_from_file(const void
+
+5002 BUF_SIZE #define
+
+<unistd.h> #include
+<stdlib.h> #include
+<string.h> #include
+<stdio.h> #include
+<fcntl.h> #includef
     fid; int
     { fd[2]) int *filename, char read_from_file(const void
 
