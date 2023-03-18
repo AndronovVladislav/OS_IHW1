@@ -9,24 +9,6 @@
 #define PIPE1 "/home/vlad/OS/IHW1/pipe1_2.fifo"
 #define PIPE2 "/home/vlad/OS/IHW1/pipe2_1.fifo"
 
-void read_from_file(const char *filename) {
-    int fd;
-    if ((fd = open(filename, O_RDONLY)) == -1) {
-        exit(-1);
-    }
-
-    char buf[BUF_SIZE] = {0};
-    size_t end_of_string;
-    if ((end_of_string = read(fd, buf, BUF_SIZE - 2)) == -1) {
-        exit(-1);
-    }
-    buf[end_of_string] = '\0';
-
-    close(fd);
-    int pipe_to_write = open(PIPE1, O_WRONLY);
-    write(pipe_to_write, buf, BUF_SIZE);
-}
-
 int my_isalnum(char ch) {
     return ch != ' ' && ch != '\t' && ch != '\n';
 }
@@ -95,7 +77,6 @@ void reverse(char *string, int fd) {
         }
     }
 
-//    close(fd);
     write(fd, result, BUF_SIZE);
 
     for (int i = 0; i < BUF_SIZE; ++i) {
@@ -108,42 +89,24 @@ void reverse(char *string, int fd) {
     free(result);
 }
 
-int main(int argc, char **argv) {
-    if (argc != 3) {
-        printf("Incorrect count of command line parameters!\n");
-        exit(-1);
-    }
-
-    pid_t chpid;
+int main() {
+    // second logic block
     (void) umask(0);
-    mknod(PIPE1, S_IFIFO | 0666, 0);
-    mknod(PIPE2, S_IFIFO | 0666, 0);
-    if ((chpid = fork()) == -1) {
-        printf("I can't create first child :c\n");
-        exit(-1);
-    } else if (chpid == 0) {
-        //  second program
-        int pipe_to_read = open(PIPE1, O_RDONLY);
-        int pipe_to_write = open(PIPE2, O_WRONLY);
 
-        char buf[BUF_SIZE] = {0};
-        read(pipe_to_read, buf, BUF_SIZE - 2);
-        reverse(buf, pipe_to_write);
-    } else {
-        //  first program
-        read_from_file(argv[1]);
+    int pipe_reader = -1;
+    int pipe_writer = -1;
 
-        // third program
-
-        int pipe_to_write = open(PIPE2, O_RDONLY);
-        char buf[BUF_SIZE] = {0};
-        read(pipe_to_write, buf, BUF_SIZE - 2);
-
-        int file_output = open(argv[2], O_CREAT | O_WRONLY);
-        write(file_output, buf, strlen(buf));
-        printf("%s", buf);
-        close(file_output);
+    while (pipe_reader == -1) {
+        pipe_reader = open(PIPE1, O_RDONLY);
     }
+
+    while (pipe_writer == -1) {
+        pipe_writer = open(PIPE2, O_WRONLY);
+    }
+
+    char buf[BUF_SIZE] = {0};
+    read(pipe_reader, buf, BUF_SIZE - 2);
+    reverse(buf, pipe_writer);
 
     return 0;
 }
