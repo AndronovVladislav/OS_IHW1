@@ -6,8 +6,8 @@
 #include <unistd.h>
 
 #define BUF_SIZE 5002
-#define PIPE1 "/home/vlad/OS/IHW1/pipe1_2.fifo"
-#define PIPE2 "/home/vlad/OS/IHW1/pipe2_1.fifo"
+#define PIPE1 "/tmp/pipe1_2.fifo"
+#define PIPE2 "/tmp/pipe2_1.fifo"
 
 void read_from_file(const char *filename) {
     int fd;

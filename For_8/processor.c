@@ -6,8 +6,8 @@
 #include <unistd.h>
 
 #define BUF_SIZE 5002
-#define PIPE1 "/home/vlad/OS/IHW1/pipe1_2.fifo"
-#define PIPE2 "/home/vlad/OS/IHW1/pipe2_1.fifo"
+#define PIPE1 "/tmp/pipe1_2.fifo"
+#define PIPE2 "/tmp/pipe2_1.fifo"
 
 int my_isalnum(char ch) {
     return ch != ' ' && ch != '\t' && ch != '\n';
